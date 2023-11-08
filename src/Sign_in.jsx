@@ -1,8 +1,10 @@
 import React from "react";
 import style from "./css/signin.module.css";
-import { BrowserRouter, Link,Routes,Route } from "react-router-dom";
+import { Link,Routes,Route,useNavigate } from "react-router-dom";
 import SignUp from "./signup_page";
 const Sign_in = () =>{
+    const Navigate = useNavigate();
+
     return(
     <>
             <div className={style.signIn}>
@@ -22,21 +24,17 @@ const Sign_in = () =>{
                                 <input type="password" name="pass" placeholder="パスワードを入力して下さい" />
                             </label>
                         </div>
-    <BrowserRouter>
+
                             <div className="form__submit">
                                 <p><input type="button" value="サインイン" /></p>
                             </div>
-                            <Link to="/signup_page">
-                                <div>
-                                    <p>新規登録</p>
-                                </div>
+                            <Link to="/signup">
+                                新規登録
                             </Link>
                             <Routes>
-                                <Route exact path="/singup" Component={SignUp}>
-                                    
-                                </Route>
+                                <Route exact path="/singup" component={SignUp}/>
                             </Routes>
-    </BrowserRouter>
+
                      </div>
                 </div>
             </div>

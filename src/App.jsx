@@ -1,21 +1,22 @@
 import Header from "./Header";
 import SignIn from "./Sign_in";
-import { BrowserRouter,Link,Switch,Route, Routes } from "react-router-dom";
 import SignUp from "./signup_page";
-
+import { BrowserRouter,Link,Switch,Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <>
+    <BrowserRouter>
       <Header />
-  
-        <BrowserRouter>
+      <main>
+      <SignUp />
+      
           <Routes>
-            <Route exact path="/" Component={SignIn} />
-            <Route exact path="/singup" Component={SignUp} />
-            
+            <Route  path="/" component={SignIn} />
+            <Route  path="/signup" component={SignUp} />
           </Routes>
-        </BrowserRouter>
-
+        
+    </main>
+</BrowserRouter>
     </>
   
   );
