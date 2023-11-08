@@ -10,7 +10,7 @@ const Header = () => {
 
     return(
         <>
-        <header>
+        <header className={style.header}>
             <h1 >Screamer</h1>
             <nav className={style.navi}>
                 <ul className={style.navi__list}>
@@ -22,10 +22,6 @@ const Header = () => {
             </nav>
         </header>
 
-        {/* <Routes>
-            <Route path="/" component={<TimeLine />} />
-            <Route path="/signin" component={<SignIn />} />
-        </Routes> */}
         </>
     );
 };

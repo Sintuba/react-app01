@@ -4,7 +4,9 @@ import Header from "../component/Header";
 const TimeLine = () => {
     return(
     <>
-        <h2>TimeLine</h2>
+       <main>
+         <h2>TimeLine</h2>
+         </main>
     </>
     );
 };
