@@ -14,7 +14,7 @@ const Header = () => {
             <h1 >Screamer</h1>
             <nav className={style.navi}>
                 <ul className={style.navi__list}>
-                    <li className={style.navi__list__item}><Link to="/" className={style.navi__list__item_link}  >タイムライン</Link></li>
+                    <li className={style.navi__list__item}><Link to="/timeline" className={style.navi__list__item_link}  >タイムライン</Link></li>
                     <li className={style.navi__list__item}><Link to="/profile" className={style.navi__list__item_link}  >プロフィール</Link></li>
                     <li className={style.navi__list__item}><Link to="/setting" className={style.navi__list__item_link}  >設定</Link></li>
                     <li className={style.navi__list__item}><Link to="/signin" className={style.navi__list__item_link}  >ログアウト</Link></li>
