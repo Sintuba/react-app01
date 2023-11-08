@@ -1,9 +1,8 @@
 import React from "react";
-import style from "./css/signin.module.css";
-import { Link,Routes,Route,useNavigate } from "react-router-dom";
+import style from "../css/signin.module.css";
+import { Link,Routes,Route} from "react-router-dom";
 import SignUp from "./signup_page";
 const Sign_in = () =>{
-    const Navigate = useNavigate();
 
     return(
     <>

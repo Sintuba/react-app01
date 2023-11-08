@@ -41,11 +41,11 @@ h1{
     font-family: 'Black Ops One', cursive;
 
     text-decoration: none;
-    font-size: larger;
+    font-size: .9rem;
     font-weight: bold;
     color: var(--maintxt-color);
 }
 
 .navi__list__item + .navi__list__item{
-    margin: 0 1.3rem;
+    margin: 0 .6rem;
 }

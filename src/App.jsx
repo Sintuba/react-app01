@@ -1,22 +1,23 @@
-import Header from "./Header";
-import SignIn from "./Sign_in";
-import SignUp from "./signup_page";
-import { BrowserRouter,Link,Switch,Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router";
+import Header from "./component/Header";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/signup_page";
+import TimeLine from "./pages/TImeLine";
+
+
 const App = () => {
   return (
     <>
-    <BrowserRouter>
+
       <Header />
-      <main>
-      <SignUp />
-      
-          <Routes>
-            <Route  path="/" component={SignIn} />
-            <Route  path="/signup" component={SignUp} />
-          </Routes>
-        
-    </main>
-</BrowserRouter>
+      <Routes>
+            <Route path="/" element={<TimeLine />} />
+            <Route path="/signin" element={<SignIn />} />
+        </Routes>
+
+
+
     </>
   
   );
