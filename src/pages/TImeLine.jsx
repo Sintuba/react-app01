@@ -1,7 +1,6 @@
 import React from "react";
 import style from "../css/timeline.module.css";
-import {Tab,Tabs,TabList,TabPanel,Tabpanels} from '@chakra-ui/react';
-;
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import 'react-tabs/style/react-tabs.css';
 import myButton from "../component/Button";
 
@@ -16,7 +15,7 @@ const MainContainer = () =>{
             <Tab>フォロワーのさけび</Tab>
             <Tab>自分のさけび</Tab>
           </TabList>
-            <Tabpanels>
+            <TabPanels>
               <TabPanel>
                 <h3>AllScreamer</h3>
               </TabPanel>
@@ -26,7 +25,7 @@ const MainContainer = () =>{
               <TabPanel>
                 <h3>MyScreamer</h3>
               </TabPanel>
-            </Tabpanels>
+            </TabPanels>
         </Tabs>
       
 
