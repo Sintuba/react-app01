@@ -12,3 +12,12 @@
     text-align: center;
   
 }
+.Scream_text{
+    border: 1px solid black;
+}
+
+main{
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+}

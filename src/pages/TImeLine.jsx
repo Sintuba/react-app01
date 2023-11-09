@@ -1,30 +1,32 @@
 import React from "react";
 import style from "../css/timeline.module.css";
-import {Tab,Tabs,TabList,TabPanel} from "react-tabs";
+import {Tab,Tabs,TabList,TabPanel,Tabpanels} from '@chakra-ui/react';
+;
 import 'react-tabs/style/react-tabs.css';
-import styled from "@emotion/styled";
+import myButton from "../component/Button";
 
-import Button from "../component/Button";
 
 const MainContainer = () =>{
   return(
     <>
       <article className={style.MainContainer}>
-        <Tabs>
-          <TabList>
-            <Tab>すべてのさけび</Tab>
+        <Tabs variant='unstyled'>
+          <TabList >
+            <Tab selected={{color:"red"}}>すべてのさけび</Tab>
             <Tab>フォロワーのさけび</Tab>
             <Tab>自分のさけび</Tab>
           </TabList>
-            <TabPanel>
-              <h3>AllScreamer</h3>
-            </TabPanel>
-            <TabPanel>
-              <h3>FollwerScreamer</h3>
-            </TabPanel>
-            <TabPanel>
-              <h3>MyScreamer</h3>
-            </TabPanel>
+            <Tabpanels>
+              <TabPanel>
+                <h3>AllScreamer</h3>
+              </TabPanel>
+              <TabPanel>
+                <h3>FollwerScreamer</h3>
+              </TabPanel>
+              <TabPanel>
+                <h3>MyScreamer</h3>
+              </TabPanel>
+            </Tabpanels>
         </Tabs>
       
 
@@ -42,8 +44,9 @@ const SideContainer = () =>{
             <div className="Userdata">
 
             </div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <Button className={style.Button}/>
+            <textarea className="Scream_text" name="Scream_text" id="" cols="30" rows="10"></textarea>
+            <myButton  size='md'color={"white"} bg={"#84DF4C"}>Scream</myButton>
+     
           </form>
       </aside>
     </>

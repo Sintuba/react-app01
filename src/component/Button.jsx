@@ -1,11 +1,10 @@
 import React from "react";
-import {Button} from "@mui/material";
-
+import {Button,ButtonGroup} from '@chakra-ui/react';
 
 const myButton = () => {
     return(
         <>
-            <Button>test</Button>
+            <Button></Button>
 
         </>
     );
