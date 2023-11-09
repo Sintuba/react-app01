@@ -2,7 +2,7 @@ import React from "react";
 import style from "../css/signin.module.css";
 import { Link,Routes,Route} from "react-router-dom";
 import SignUp from "./signup_page";
-const Sign_in = () =>{
+const SignIn = () =>{
 
     return(
     <>
@@ -43,4 +43,4 @@ const Sign_in = () =>{
     );
 }
 
-export default Sign_in;
+export default SignIn;
