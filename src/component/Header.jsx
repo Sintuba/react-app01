@@ -1,18 +1,16 @@
 import style from "../css/header.module.css";
 import { Link, Route, Routes } from "react-router-dom";
 // import SignIn from "../pages/Sign_in";
+import  React, {useState} from 'react';
 
 import TimeLine from "../pages/TimeLine";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/signup_page";
-const Header = () => {
 
-
-    return (
+const Navigation = () =>{
+    return(
         <>
-            <header className={style.header}>
-                <h1 >Screamer</h1>
-                <nav className={style.navi}>
+          <nav className={style.navi}>
                     <ul className={style.navi__list}>
                         <li className={style.navi__list__item}><Link to="/timeline" className={style.navi__list__item_link}  >タイムライン</Link></li>
                         <li className={style.navi__list__item}><Link to="/profile" className={style.navi__list__item_link}  >プロフィール</Link></li>
@@ -20,6 +18,17 @@ const Header = () => {
                         <li className={style.navi__list__item}><Link to="/signin" className={style.navi__list__item_link}  >ログアウト</Link></li>
                     </ul>
                 </nav>
+        </>
+
+    );
+}
+
+const Header = () => {
+    return (
+        <>
+            <header className={style.header}>
+                <h1 >Screamer</h1>
+                <Navigation />
             </header>
 
         </>

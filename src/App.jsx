@@ -1,16 +1,15 @@
 import React from "react";
-import { BrowserRouter,Route, Routes } from "react-router-dom";
-import Header from "./component/Header";
+import { BrowserRouter,useNavigate,Route, Routes } from "react-router-dom";
+import { ChakarProvider } from "@chakra-ui/react";
 
 import Default from "./pages/Default";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/signup_page";
-import TimeLine from "./pages/TimeLine";
-import Setting from "./pages/Setting";
-import Profile from "./pages/Profile";
 
+function AppContainer(children){
+  return <ChakarProvider>{children}</ChakarProvider>
+}
 
 const App = () => {
+ 
   return (
     <>
   <BrowserRouter>
