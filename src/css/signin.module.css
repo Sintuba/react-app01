@@ -17,8 +17,8 @@
 }
 .formWrapper{
     background-color: rgb(222, 216, 216);
-    width: 70%;
-    height: 55%;
+    width: 23rem;
+    height: 25rem;
     border-radius: 8px ;
     box-shadow: 2px 3px 8px;
 }

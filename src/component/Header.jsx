@@ -3,7 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 // import SignIn from "../pages/Sign_in";
 import  React, {useState} from 'react';
 
-import TimeLine from "../pages/TimeLine";
+// import TimeLine from "../pages/TimeLine";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/signup_page";
 

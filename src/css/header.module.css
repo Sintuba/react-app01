@@ -10,6 +10,7 @@
 header{
     position: fixed;
     display: flex;
+    z-index: 100;
     justify-content: space-around;
     width: 100%;
     height: var(--header-height);
@@ -23,6 +24,7 @@ h1{
     margin: 0;
     padding: 0;
     color: var(--maintxt-color);
+    text-shadow: 2px 2px black;
 }
 .navi{
     

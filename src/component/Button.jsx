@@ -1,13 +1,12 @@
 import React from "react";
 import {Button,ButtonGroup} from '@chakra-ui/react';
 
-const myButton = () => {
+const ScreamButton = () => {
     return(
         <>
-            <Button></Button>
-
+            <Button bg="#84DF4C" color='white' ><p>Scream</p></Button>
         </>
     );
 };
 
-export default myButton;
+export default ScreamButton;

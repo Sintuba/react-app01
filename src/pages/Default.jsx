@@ -4,7 +4,7 @@ import Header from "../component/Header";
 import "../css/default.module.css";
 import SignIn from "./SignIn";
 import SignUp from "./signup_page";
-import TimeLine from "./TimeLine";
+import TimeLine from "./TImeLine";
 import Setting from "./Setting";
 import Profile from "./Profile";
 
