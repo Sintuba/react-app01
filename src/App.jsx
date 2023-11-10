@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BrowserRouter,Router,Route, Routes } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import SignIn from "./pages/SignIn";
@@ -11,10 +12,10 @@ function AppContainer(children){
 }
 
 const App = () => {
-  const isAuthenticated = true;
+
   return (
     <>
-  <BrowserRouter>
+  <BrowserRouter >
 
         
             {/* <ChakraProvider> */}
