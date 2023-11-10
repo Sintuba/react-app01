@@ -10,8 +10,8 @@ const MainContainer = () =>{
   return(
     <>
       <article className={style.MainContainer}>
-        <Tabs variant='unstyled'>
-          <TabList className={style.tabList}>
+        <Tabs variant='soft-rounde'>
+          <TabList  className={style.tabList}>
             <Tab><p>すべてのさけび</p></Tab>
             <Tab><p>フォロワーのさけび</p></Tab>
             <Tab><p>自分のさけび</p></Tab>
