@@ -5,9 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import SignIn from "./pages/SignIn";
 import Default from "./pages/Default";
 
-
-
-function AppContainer(children){
+function AppContainer({children}){
   return <ChakraProvider>{children}</ChakraProvider>
 }
 
@@ -17,11 +15,7 @@ const App = () => {
     <>
   <BrowserRouter >
 
-        
-            {/* <ChakraProvider> */}
-                <Default />
-            {/* </ChakraProvider> */}
-          
+          <Default />
 
   </BrowserRouter>
 
