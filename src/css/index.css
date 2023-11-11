@@ -21,7 +21,7 @@ main{
   position: relative;
   top: var(--header-height);
   width: 100vw;
-  height: auto;
+
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
