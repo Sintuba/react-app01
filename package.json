@@ -16,7 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.1",
     "framer-motion": "^10.16.4",
-    "homepage": "https://github.com/Sintuba/react-app01.git",
+    "homepage": "https://sintuba.github.io/react-app01/",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
