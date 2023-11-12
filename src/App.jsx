@@ -9,8 +9,8 @@ import theme from "./theme/Theme01";
 function AppContainer({children}){
 
   return (
+    // themeをインポート
     <ChakraProvider theme={theme}>
-        <Default />
       {children}
     </ChakraProvider>
   );
@@ -21,7 +21,9 @@ const App = () => {
   return (
 <>
   <BrowserRouter >
-    <AppContainer />
+    <AppContainer >
+      <Default />
+    </AppContainer>
   </BrowserRouter>
 </>
 
