@@ -1,11 +1,13 @@
 'use client'
 // react-icons↓
 import { IoPersonCircleOutline } from "react-icons/io5";
-import {BiDoorOpen} from "react-icons/bi"; import{BsCardText} from "react-icons/bs";import{LiaToolsSolid} from "react-icons/lia"
+import {BiDoorOpen} from "react-icons/bi"; import{BsCardText} from "react-icons/bs";
+import{LiaToolsSolid} from "react-icons/lia";import{AiOutlineClose}from"react-icons/ai";
 // react-icons↑
 import {
   Box,
   Flex,
+  Center,
   Avatar,
   HStack,
   Text,
@@ -23,11 +25,13 @@ import {
   Divider,
   Container,
   Show, Hide,
-  Fade, ScaleFade, Slide, SlideFade, Collapse //transition
+  Fade, ScaleFade, Slide, SlideFade, Collapse, //transition
+  useBoolean
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, PhoneIcon, SettingsIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
 import { Component } from 'react';
+import { set } from "react-hook-form";
 
 const NaviList = ()=> {
   return(
@@ -36,49 +40,49 @@ const NaviList = ()=> {
               <Text 
               textDecoration="none" 
               as={NavLink} to="timeline"
-              fontSize="1rem"
+              fontSize=".9rem"
               fontWeight={"bolder"}
               textShadow={".2px 1px black"}
               color={"white"}
               margin={"0 .9rem"}
-              ><Flex><Box  m={".8rem 1rem"} justifyContent={"center"}><BsCardText fontSize={"2rem"} /></Box>タイムライン</Flex></Text>
+              ><Flex alignItems={"center"}><Box  m={".8rem 1rem"} justifyContent={"center"}><BsCardText fontSize={"1.8rem"} /></Box>タイムライン</Flex></Text>
            
               <Text 
               textDecoration="none" 
               as={NavLink} 
               to="profile" 
-              fontSize="1rem"
+              fontSize=".9rem"
               fontWeight={"bolder"}
               textShadow={".2px 1px black"}
               color={"white"}
               margin={"0 .9rem"}
-              ><Flex>
+              ><Flex alignItems={"center"}>
                   <Box m={".7rem 1rem"} justifyContent={"center"}>
-                    <IoPersonCircleOutline   fontSize={"2rem"} />
+                    <IoPersonCircleOutline   fontSize={"1.8rem"} />
                   </Box>プロフィール
-                </Flex></Text>
+                </Flex ></Text>
 
               <Text 
               
                 textDecoration="none" 
                 as={NavLink} 
                 to="setting" 
-                fontSize="1rem"
+                fontSize=".9rem"
                 fontWeight={"bolder"}
                 textShadow={".2px 1px black"}
                 color={"white"}
                 margin={"0 .9rem"}
-              ><Flex><Box  m={".8rem 1rem"} justifyContent={"center"}><LiaToolsSolid fontSize={"2rem"} /></Box>設定</Flex></Text>
+              ><Flex alignItems={"center"}><Box  m={".8rem 1rem"} justifyContent={"center"}><LiaToolsSolid fontSize={"1.8rem"} /></Box>設定</Flex></Text>
 
               <Text 
                 textDecoration="none" 
                 as={NavLink} 
-                fontSize="1rem"
+                fontSize=".9rem"
                 fontWeight={"bolder"}
                 textShadow={".2px 1px black"}
                 color={"white"}
                 margin={"0 .9rem"}
-              ><Flex><Box  m={".8rem 1rem"}justifyContent={"center"}><BiDoorOpen fontSize={"2rem"} /></Box>ログアウト</Flex></Text>
+              ><Flex alignItems={"center"}><Box  m={".8rem 1rem"}justifyContent={"center"}><BiDoorOpen fontSize={"1.8rem"} /></Box>ログアウト</Flex></Text>
         
     </>
   );
@@ -97,23 +101,16 @@ const Logo = () =>{
 
 
 const Header02 = () => {
-  const {isOpen,onOpen,onClose} = useDisclosure();
+  // const [flag,setFlag] = useBoolean();
+  const {isOpen,onOpen,onClose,onToggle} = useDisclosure(false);
   const HamButton = () =>{
     return(
       <>
-                <IconButton onClick={onOpen} m={"0 .4rem"} fontSize={"2.5rem"} bg={"#84DF4C"} top={2} aria-label='Search database' icon={<HamburgerIcon/>}/>
-             
+                <IconButton onMouseEnter={isOpen.toggle} onClick={onToggle} m={"0 .4rem"} fontSize={"2.5rem"} bg={"#84DF4C"} top={2} aria-label='Search database' icon={isOpen ? <AiOutlineClose color={"white"}/>:<HamburgerIcon color={"white"}/>}/>
       </> 
     );
   }
-  const CloseButton = () =>{
-    return(
-      <>
-                <IconButton onClick={onClose} m={"0 .4rem"} fontSize={"2.5rem"} bg={"#84DF4C"} top={2} aria-label='Search database' icon={<HamburgerIcon/>}/>
 
-      </>
-    );
-  }
   return(
 <>
       {/* ヘッダー */}
@@ -123,15 +120,17 @@ const Header02 = () => {
         
           <Box   lineHeight={"60px"}>
             {/* ヘッダー内のナビのリンクをメディアクエリでShow,Hideで切り替えrow,column */}
-            <Show above='840px' >
+            <Show above='850px' >
                 <Flex  justifyContent={"space-evenly"}>
                   <NaviList />
                 </Flex>
             </Show>
             {/* ハンバーガーメニュー */}
-            <Hide above='840px'>
+            <Hide above='850px'>
               <Flex position={"relative"}  justifyContent={"space-between"}>
                 <HamButton />
+                {/* <ChageButton   /> */}
+
               </Flex>
             </Hide>
 
@@ -139,16 +138,13 @@ const Header02 = () => {
         </Flex>
       </Box>
       <Slide  direction='top'  in={isOpen}>
-                <Box onResize={onClose}  onClick={onClose}  position={"relative"} zIndex={"1"}  minW={"400px"}  textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
+                <Center onResize={onClose}  onClick={onClose}  position={"relative"} zIndex={"1"}  minW={"400px"}  textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
                       
-                      <Flex justifyContent={"center"} flexDirection={"column"}>
-                      <Flex >
-                          <CloseButton  />
+                      <Flex  justifyContent={"center"} flexDirection={"column"}>
+                        <NaviList   onClick={onOpen} />   
                       </Flex>
-                        <NaviList  onClick={onOpen} />   
-                      </Flex>
-                </Box>
-    </Slide>
+                </Center>
+      </Slide>
 </>
   );
 };
