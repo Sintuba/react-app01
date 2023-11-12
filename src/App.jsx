@@ -20,7 +20,7 @@ const App = () => {
 
   return (
 <>
-  <BrowserRouter basename="/react-app01">
+  <BrowserRouter >
     <AppContainer >
       <Default />
     </AppContainer>
