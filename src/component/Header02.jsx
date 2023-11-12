@@ -117,11 +117,11 @@ const Header02 = () => {
   return(
 <>
       {/* ヘッダー */}
-      <Box onClick={onOpen}  zIndex={"11"} top={"0"} position={"fixed"} boxShadow={"1px 2px 5px black"} width={"100%"} height={"60px"}  bg={"#84DF4C"}>
+      <Box  zIndex={"11"} top={"0"} position={"fixed"} boxShadow={"1px 2px 5px black"} width={"100%"} height={"60px"}  bg={"#84DF4C"}>
         <Flex color={"white"} justifyContent={"space-around"}>
         <Logo />
         
-          <Box  lineHeight={"60px"}>
+          <Box   lineHeight={"60px"}>
             {/* ヘッダー内のナビのリンクをメディアクエリでShow,Hideで切り替えrow,column */}
             <Show above='840px' >
                 <Flex  justifyContent={"space-evenly"}>
@@ -138,18 +138,17 @@ const Header02 = () => {
             </Box>
         </Flex>
       </Box>
-      <Slide direction='top'  in={isOpen}>
-                <Box onClick={onClose}  position={"relative"} zIndex={"1"}  minW={"400px"}  textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
+      <Slide  direction='top'  in={isOpen}>
+                <Box onResize={onClose}  onClick={onClose}  position={"relative"} zIndex={"1"}  minW={"400px"}  textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
                       
                       <Flex justifyContent={"center"} flexDirection={"column"}>
-                      <Flex ml={"6.5rem"}>
-                          <Logo  />
+                      <Flex >
                           <CloseButton  />
                       </Flex>
                         <NaviList  onClick={onOpen} />   
                       </Flex>
                 </Box>
-                  </Slide>
+    </Slide>
 </>
   );
 };

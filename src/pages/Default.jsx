@@ -19,7 +19,7 @@ const Default = () => {
 
       <Header02  />
 
-      <main >
+      <Box zIndex={"-1"} position={"relative"} top={"60px"}>
 
         <Routes>
               
@@ -30,10 +30,10 @@ const Default = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<NoMatch />} />
         </Routes>
-      </main>
+   
 
-      </>
-    
+      </Box>
+    </>
     );
   };
 
