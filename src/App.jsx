@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter  } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 
 import Default from "./pages/Default";
 
@@ -11,7 +11,7 @@ function AppContainer({children}){
   return (
     // themeをインポート
     <ChakraProvider theme={theme}>
-      {children}
+     {children}
     </ChakraProvider>
   );
 }
@@ -20,11 +20,14 @@ const App = () => {
 
   return (
 <>
+
   <BrowserRouter basename="/react-app01">
-    <AppContainer >
-      <Default  />
-    </AppContainer>
-  </BrowserRouter>
+   
+      <AppContainer >
+        <Default  />
+      </AppContainer>
+    </BrowserRouter>
+
 </>
 
   );
