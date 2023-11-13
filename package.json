@@ -5,12 +5,22 @@
   "homepage": "https://sintuba.github.io/react-app01/",
   "engines": {
     "node": "20.9.0",
-    "npm": "10.1.0"
+    "npm": "10.2.3"
   },
   "dependencies": {
-    "react-scripts": "5.0.1"
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.6.1",
+    "framer-motion": "^10.16.4",
+    "react-hook-form": "^7.48.2",
+    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.18.0",
+    "react-scripts": "5.0.1",
+    "react-tabs": "^6.0.2",
+    "web-vitals": "^3.5.0"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -19,8 +29,7 @@
     "postbuild": "cp build/index.html build/404.html",
     "rm": "rm -rf docs",
     "mv": "mv build docs",
-    "git": "git add . && git commit && git push origin master",
-   
+    "git": "git add . && git commit -m \"Commit message\" && git push origin master",
     "deploy": "gh-pages -d docs"
   },
   "eslintConfig": {
@@ -40,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
