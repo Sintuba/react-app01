@@ -120,13 +120,13 @@ const Header02 = () => {
         
           <Box   lineHeight={"60px"}>
             {/* ヘッダー内のナビのリンクをメディアクエリでShow,Hideで切り替えrow,column */}
-            <Show above='850px' >
+            <Show above='860px' >
                 <Flex  justifyContent={"space-evenly"}>
                   <NaviList />
                 </Flex>
             </Show>
             {/* ハンバーガーメニュー */}
-            <Hide above='850px'>
+            <Hide above='860px'>
               <Flex position={"relative"}  justifyContent={"space-between"}>
                 <HamButton />
                 {/* <ChageButton   /> */}

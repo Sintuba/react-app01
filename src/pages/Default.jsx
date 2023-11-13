@@ -19,7 +19,7 @@ const Default = () => {
 
       <Header02  />
 
-      <Box bg={"#f3eeee"} zIndex={"-1"} position={"relative"} top={"60px"}>
+      <Box zIndex={"-1"} position={"relative"} top={"60px"}>
 
         <Routes>
               
