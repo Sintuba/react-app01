@@ -12,7 +12,7 @@ const MainContainer = ({ dummyData }) =>{
   return(
     <>
    
-       <Flex >
+       <Flex justifyContent={"center"}>
   
             <VStack spacing={5} align="stretch">
               {dummyData.map((item) => (
@@ -56,9 +56,9 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
   {/* 投稿ブロック*/}
   <Hide above='860px'>
   <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
-  <Flex justifyContent={"center"} >
+  <Flex alignItems={"flex-end"} justifyContent={"center"} >
         <Input
-        
+          
           placeholder="新しいメッセージを入力"
           value={newMessage}
           w={"100%"} h={"60%"}
@@ -79,9 +79,8 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
 
 const TimeLine = () => {
   const [dummyData,setDummyData] = useState([]);
-  const [Smaller860] = useMediaQuery('(max-width:860px)');
-  const justifyContent = Smaller860 ? 'center':'flex-end';
-  console.log('Smaller860:', Smaller860);
+  const [Smaller860] = useMediaQuery(`(max-width:860px)`);
+  const [justifyContent, setJustifyContent] = useState(Smaller860 ? 'center' : 'flex-end');  console.log('Smaller860:', Smaller860);
 console.log('justifyContent:', justifyContent);
   useEffect(() => {
     const initialDummyMessages = [
@@ -90,12 +89,15 @@ console.log('justifyContent:', justifyContent);
 
     setDummyData(initialDummyMessages);
   }, []);
+  useEffect(()=>{
+        setJustifyContent(Smaller860 ? 'center':'flex-end');
+  },[Smaller860]);
     return(
     <>
-       <Flex  justifyContent={justifyContent}>
+       <Flex  flexDirection={"column-reverse"}  justifyContent={justifyContent}>
            
             <SideContainer dummyData={dummyData} setDummyData={setDummyData} />
-          <Box pt={"55px"} pb={"60px"} >
+          <Box pt={"55px"} pb={"67px"} >
               <MainContainer dummyData={dummyData} />
               
           </Box>
