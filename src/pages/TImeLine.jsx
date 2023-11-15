@@ -11,18 +11,23 @@ const MainContainer = ({ dummyData }) =>{
 
   return(
     <>
-   
-       <Flex justifyContent={"center"}>
   
-            <VStack  spacing={5} align="stretch">
-              {dummyData.map((item) => (
-                  <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
-                    <Text padding={".2rem"} fontSize="lg">{item.username}</Text>
-                    <Text mt={2}>{item.message}</Text>
-                  </Box>
-              ))}
-            </VStack>
-      </Flex>
+         <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
+      
+              <VStack flexDirection={"column-reverse"} spacing={5} align="stretch">
+                {dummyData.map((item) => (
+               <Fade  transition={{exit: {delay: .15}, enter: {duration: 0.9}}} in={true} key={item.id}>
+                      <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
+                        <Text padding={".2rem"} fontSize="lg">{item.username}</Text>
+                        <Text mt={2}>{item.message}</Text>
+                      </Box>
+               </Fade>
+                ))}
+
+              </VStack>
+            
+        </Flex>
+  
    
     </>
   );
@@ -81,7 +86,7 @@ const TimeLine = () => {
   const [dummyData,setDummyData] = useState([]);
   const [isSmallerThan860] = useMediaQuery('(min-width: 860px)');
   const justifyContent = isSmallerThan860 ? 'flex-end':'center';
-  console.log(isSmallerThan860);
+  console.log(justifyContent);
   useEffect(() => 
   {
     const initialDummyMessages = [
@@ -95,12 +100,11 @@ const TimeLine = () => {
 
     return(
     <>
-       <Flex alignItems={justifyContent}  flexDirection={"column-reverse"} >
+       <Flex justifyContent={justifyContent}   >
            
             <SideContainer  dummyData={dummyData} setDummyData={setDummyData} />
-          <Box pt={"55px"} pb={"67px"} >
+          <Box  pt={"55px"} pb={"67px"} >
               <MainContainer dummyData={dummyData} />
-              
           </Box>
        </Flex>
     </>
