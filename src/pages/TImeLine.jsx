@@ -11,18 +11,23 @@ const MainContainer = ({ dummyData }) =>{
 
   return(
     <>
-   
-       <Flex justifyContent={"center"}>
   
-            <VStack spacing={5} align="stretch">
-              {dummyData.map((item) => (
-                  <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={0} borderWidth={1} borderRadius={8} boxShadow="lg">
-                    <Text fontSize="lg">{item.username}</Text>
-                    <Text mt={2}>{item.message}</Text>
-                  </Box>
-              ))}
-            </VStack>
-      </Flex>
+         <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
+      
+              <VStack flexDirection={"column-reverse"} spacing={5} align="stretch">
+                {dummyData.map((item) => (
+               <Fade  transition={{exit: {delay: .15}, enter: {duration: 0.9}}} in={true} key={item.id}>
+                      <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
+                        <Text padding={".2rem"} fontSize="lg">{item.username}</Text>
+                        <Text mt={2}>{item.message}</Text>
+                      </Box>
+               </Fade>
+                ))}
+
+              </VStack>
+            
+        </Flex>
+  
    
     </>
   );
@@ -39,7 +44,7 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
   return(
     <>
   <Show above='860px' >
-    <Box bg={"white"} position={"fixed"} left={0} h={"100vh"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
+    <Box bg={"white"} position={"fixed"} left={0} top={"60px"} h={"100%"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
       <Input
       alignItems={"baseline"}
         placeholder="新しいメッセージを入力"
@@ -56,7 +61,7 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
   {/* 投稿ブロック*/}
   <Hide above='860px'>
   <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
-  <Flex alignItems={"flex-end"} justifyContent={"center"} >
+  <Flex justifyContent={"flex-end"} alignItems={"center"}  >
         <Input
           
           placeholder="新しいメッセージを入力"
@@ -79,27 +84,27 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
 
 const TimeLine = () => {
   const [dummyData,setDummyData] = useState([]);
-  const [Smaller860] = useMediaQuery(`(max-width:860px)`);
-  const [justifyContent, setJustifyContent] = useState(Smaller860 ? 'center' : 'flex-end');  console.log('Smaller860:', Smaller860);
-console.log('justifyContent:', justifyContent);
-  useEffect(() => {
+  const [isSmallerThan860] = useMediaQuery('(min-width: 860px)');
+  const justifyContent = isSmallerThan860 ? 'flex-end':'center';
+  console.log(justifyContent);
+  useEffect(() => 
+  {
     const initialDummyMessages = [
          // ダミーデータの初期化（今後データベースからの取得に置き換える）
     ];
 
     setDummyData(initialDummyMessages);
   }, []);
-  useEffect(()=>{
-        setJustifyContent(Smaller860 ? 'center':'flex-end');
-  },[Smaller860]);
+
+ 
+
     return(
     <>
-       <Flex  flexDirection={"column-reverse"}  justifyContent={justifyContent}>
+       <Flex justifyContent={justifyContent}   >
            
-            <SideContainer dummyData={dummyData} setDummyData={setDummyData} />
-          <Box pt={"55px"} pb={"67px"} >
+            <SideContainer  dummyData={dummyData} setDummyData={setDummyData} />
+          <Box  pt={"55px"} pb={"67px"} >
               <MainContainer dummyData={dummyData} />
-              
           </Box>
        </Flex>
     </>
