@@ -120,13 +120,13 @@ const Header02 = () => {
         
           <Box   lineHeight={"60px"}>
             {/* ヘッダー内のナビのリンクをメディアクエリでShow,Hideで切り替えrow,column */}
-            <Show above='850px' >
+            <Show above='860px' >
                 <Flex  justifyContent={"space-evenly"}>
                   <NaviList />
                 </Flex>
             </Show>
             {/* ハンバーガーメニュー */}
-            <Hide above='850px'>
+            <Hide above='860px'>
               <Flex position={"relative"}  justifyContent={"space-between"}>
                 <HamButton />
                 {/* <ChageButton   /> */}
@@ -137,14 +137,16 @@ const Header02 = () => {
             </Box>
         </Flex>
       </Box>
-      <Slide  direction='top'  in={isOpen}>
-                <Center onResize={onClose}  onClick={onClose}  position={"relative"} zIndex={"1"}  minW={"400px"}  textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
-                      
-                      <Flex  justifyContent={"center"} flexDirection={"column"}>
-                        <NaviList   onClick={onOpen} />   
-                      </Flex>
-                </Center>
-      </Slide>
+    
+        <Slide  direction='top'   in={isOpen} transition={{exit: {delay: .15}, enter: {duration: 0.6}}}>
+                  <Center onResize={onClose}  onClick={onClose}  position={"relative"} zIndex={"1"}   textAlign={"center"} h="100vh" w="100%" bg={"#84DF4C"} >
+                        
+                        <Flex  justifyContent={"center"} flexDirection={"column"}>
+                          <NaviList   onClick={onOpen} />   
+                        </Flex>
+                  </Center>
+        </Slide>
+  
 </>
   );
 };

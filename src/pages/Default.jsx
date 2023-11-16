@@ -29,6 +29,7 @@ const Default = () => {
         <Route path="/setting" element={<Setting />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<NoMatch />} />
+        <Route path="/signup" element={<SignUp />} />
         </Routes>
    
 
