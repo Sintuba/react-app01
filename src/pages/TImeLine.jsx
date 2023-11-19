@@ -1,51 +1,52 @@
-
 import React, { useState, useEffect } from 'react';
-// import style from "../css/timeline.module.css";
-import { VStack,extendTheme , Box,Fade,useMediaQuery, Text, Flex, Input, Button, CSSReset, FormControl, FormLabel, Heading, Slide,Show,Hide } from '@chakra-ui/react';
-import {  Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { VStack, Box, Fade, useMediaQuery, Text, Flex, Input, Button, Textarea, Show, Hide } from '@chakra-ui/react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-import ScreamButton from "../component/Button";
-
-
-const MainContainer = ({ dummyData }) =>{
-
+const MessageItem = ({ item }) => {
+  console.log(item,item.profile,item.username);
   return(
-    <>
-  
-         <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
-      
-              <VStack flexDirection={"column-reverse"} spacing={5} align="stretch">
-                {dummyData.map((item) => (
-               <Fade  transition={{exit: {delay: .15}, enter: {duration: 0.9}}} in={true} key={item.id}>
-                      <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
-                        <Text padding={".2rem"} fontSize="lg">{item.username}</Text>
-                        <Text mt={2}>{item.message}</Text>
-                      </Box>
-               </Fade>
-                ))}
-
-              </VStack>
-            
-        </Flex>
-  
-   
-    </>
+    <Fade transition={{ exit: { delay: .15 }, enter: { duration: 0.9 } }} in={true}>
+    <Box justifyContent={"center"} margin={"0 1vw"} h={"22vh"} w={"70vw"} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Text padding={".2rem"} fontSize="lg">{item.name}</Text>
+      <Text mt={2}>{item.content}</Text>
+    </Box>
+  </Fade>
   );
-     
-};
-const SideContainer = ({ dummyData, setDummyData }) =>{
-  const [newMessage, setNewMessage] = useState('');
-  const handleAddMessage = () => {
-    const newId = dummyData.length + 1;
-    const newMessageData = { id: newId, username: 'User1', message: newMessage };
-    setDummyData([...dummyData, newMessageData]);
-    setNewMessage('');
+
   };
+
+const MainContainer = ({ Data = [] }) => {
+
   return(
+    <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
+      <VStack flexDirection={"column-reverse"} spacing={5} align="stretch">
+        {Data.map(item => <MessageItem key={item.id} item={item} />)}
+      </VStack>
+    </Flex>
+  );
+  };
+
+const SideContainer = ({ fetchData }) => {
+  const [newMessage, setNewMessage] = useState('');
+
+  const handleAddMessage = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/screams`, { 
+        userId:0, 
+        content: newMessage });
+      setNewMessage('');
+      fetchData();
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
+
+  return (
     <>
-  <Show above='860px' >
-    <Box bg={"white"} position={"fixed"} left={0} top={"60px"} h={"100%"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
-      <Input
+      <Show above='860px'>
+      <Box bg={"white"} position={"fixed"} left={0} h={"100vh"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Textarea
       alignItems={"baseline"}
         placeholder="新しいメッセージを入力"
         value={newMessage}
@@ -57,11 +58,10 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
         さけぶ
       </Button>
     </Box>
-  </Show>
-  {/* 投稿ブロック*/}
-  <Hide above='860px'>
-  <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
-  <Flex justifyContent={"flex-end"} alignItems={"center"}  >
+      </Show>
+      <Hide above='860px'>
+      <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
+  <Flex alignItems={"flex-end"} justifyContent={"center"} >
         <Input
           
           placeholder="新しいメッセージを入力"
@@ -75,40 +75,45 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
         </Button>
   </Flex>
     </Box>
-
-  </Hide>
-
+      </Hide>
     </>
   );
-}
+};
 
 const TimeLine = () => {
-  const [dummyData,setDummyData] = useState([]);
+
   const [isSmallerThan860] = useMediaQuery('(min-width: 860px)');
-  const justifyContent = isSmallerThan860 ? 'flex-end':'center';
-  console.log(justifyContent);
-  useEffect(() => 
-  {
-    const initialDummyMessages = [
-         // ダミーデータの初期化（今後データベースからの取得に置き換える）
-    ];
+  const justifyContent = isSmallerThan860 ? 'flex-end' : 'center';
+  const [data,setData] = useState([]);
+  const [reloadData, setReloadData] = useState(false);
+  
+  const fetchData = async () => {
 
-    setDummyData(initialDummyMessages);
-  }, []);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/screams`);
+     
+      setData(response.data); // 取得したデータをStateにセット
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
 
- 
+  useEffect(() => {
+    fetchData(); // コンポーネントのマウント時およびreloadDataが変更されたときに実行
+  }, [reloadData]);
 
-    return(
+
+
+  return (
     <>
-       <Flex justifyContent={justifyContent}   >
-           
-            <SideContainer  dummyData={dummyData} setDummyData={setDummyData} />
-          <Box  pt={"55px"} pb={"67px"} >
-              <MainContainer dummyData={dummyData} />
-          </Box>
-       </Flex>
+      <Flex justifyContent={justifyContent}>
+        <SideContainer fetchData={fetchData} />
+        <Box pt={"55px"} pb={"67px"}>
+          <MainContainer Data={data} />
+        </Box>
+      </Flex>
     </>
-    );
+  );
 };
 
 export default TimeLine;

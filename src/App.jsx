@@ -21,11 +21,12 @@ const App = () => {
   return (
 <>
 
-  <BrowserRouter basename="/react-app01">
+  <BrowserRouter basename="/">
    
       <AppContainer >
         <Default  />
       </AppContainer>
+      
     </BrowserRouter>
 
 </>

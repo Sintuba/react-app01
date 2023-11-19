@@ -34,12 +34,13 @@ import { Component } from 'react';
 import { set } from "react-hook-form";
 
 const NaviList = ()=> {
+
   return(
     <>
               
               <Text 
               textDecoration="none" 
-              as={NavLink} to="timeline"
+              as={NavLink} to={`/`}
               fontSize=".9rem"
               fontWeight={"bolder"}
               textShadow={".2px 1px black"}

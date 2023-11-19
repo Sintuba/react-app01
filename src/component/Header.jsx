@@ -1,35 +1,31 @@
 import style from "../css/header.module.css";
 import { Link, Route, Routes ,NavLink} from "react-router-dom";
 import  React, {useState} from 'react';
+import { Box,Flex,Show,Heading } from "@chakra-ui/react";
 // import TimeLine from "../pages/TimeLine";
 import SignIn from "../pages/SignIn";
-import SignUp from "../pages/signup_page";
+import SignUp from "../pages/Signup";
 
-const Navigation = () =>{
+const Logo = () =>{
     return(
-        <>
-          <nav className={style.navi}>
-                    <ul className={style.navi__list}>
-                        <li className={style.navi__list__item}><NavLink style={({ isActive }) =>(isActive ? { fontSize:"x-large" } : undefined)} to="/header" className={style.navi__list__item_link}  >リンク</NavLink></li>
-                        <li className={style.navi__list__item}><NavLink style={({ isActive }) =>(isActive ? { fontSize:"x-large" } : undefined)} to="/timeline" className={style.navi__list__item_link}  >タイムライン</NavLink></li>
-                        <li className={style.navi__list__item}><NavLink style={({ isActive }) => (isActive ? { fontSize:"x-large" } : undefined)} to="/profile" className={style.navi__list__item_link}  >プロフィール</NavLink></li>
-                        <li className={style.navi__list__item}><NavLink style={({ isActive }) => (isActive ? { fontSize:"x-large" } : undefined)} to="/setting" className={style.navi__list__item_link}  >設定</NavLink></li>
-                        <li className={style.navi__list__item}><NavLink  to="/signin" className={style.navi__list__item_link}  >ログアウト</NavLink></li>
-                    </ul>
-                </nav>
-        </>
-
+      <>
+                <Heading mr={"2rem"} mt={"2"} textShadow={"2.5px 3.3px  black"} fontSize="2rem">Screamer</Heading>
+  
+      </>
     );
-}
+  };
 
 const Header = () => {
     return (
         <>
-            <header className={style.header}>
-                <h1 >Screamer</h1>
-                <Navigation />
-            </header>
+   
+        <Box  zIndex={"11"} top={"0"} position={"fixed"} boxShadow={"1px 2px 5px black"} width={"100%"} height={"60px"}  bg={"#84DF4C"}>
+            <Flex color={"white"} justifyContent={"space-around"}>
+            <Logo />
 
+            </Flex>
+        </Box>
+    
         </>
     );
 };

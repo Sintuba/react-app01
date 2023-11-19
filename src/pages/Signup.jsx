@@ -1,22 +1,15 @@
 import React from "react";
-import { Flex,CSSReset,Box,Heading,FormControl,FormLabel,Input,Center,Button } from "@chakra-ui/react";
-import axios from 'axios';
-import {useForm} from 'react-hook-form';
-import { Link,Routes,Route,useNavigate} from "react-router-dom";
-import SignUp from "./Signup";
-
-
-const SignIn = () =>{
-
-    
+// import style from "../css/signup.module.css"
+import { Box,CSSReset,Flex,Heading,FormControl,FormLabel,Input,Button, Center } from "@chakra-ui/react";
+const Signup = () =>{
     return(
-    <>
-               <CSSReset />
+        <>
+                 <CSSReset />
       <Flex  align="center" justify="center" position={"relative"} top={"30px"} >
         {/* wrapper */}
         <Box  bg={"white"} borderRadius="8px" maxWidth="400px" borderWidth={1}  boxShadow="lg">
             <Box borderRadius="16px 16px 0 0"  bg={"#84DF4C"} textAlign="center">
-                <Heading fontSize={"1rem"} textShadow={"1px 1px 5px black"} p={"20px 60px"} color={"white"}>サインイン</Heading>
+                <Heading fontSize={"1.4rem"} textShadow={"1px 1px 5px black"} p={"20px 60px"} color={"white"}>サインアップ</Heading>
             </Box>
           {/* フォーム */}
             <Box p={"10"}>
@@ -31,15 +24,15 @@ const SignIn = () =>{
                     </FormControl>
                     <Center>
                         <Button  color={"white"} bg="#84DF4C" mt={4} type="submit">
-                        サインイン
+                        登録
                         </Button>
                     </Center>
                 </form>
             </Box>
         </Box>
       </Flex>
-    </>
+        </>
     );
 }
 
-export default SignIn;
+export default Signup;
