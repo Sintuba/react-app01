@@ -30,8 +30,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, PhoneIcon, SettingsIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
-import { Component } from 'react';
-import { set } from "react-hook-form";
+
 
 const NaviList = ()=> {
 
