@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter,useNavigate,Router,Routes,Route,Navigate} from "react-router-dom";
+import React, {useContext} from "react";
+import { Router,Routes,Route,Navigate} from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Header from "../component/Header";
 import SignIn from "./SignIn";
@@ -11,10 +11,14 @@ import NoMatch from "./NoMatch";
 import Header02 from "../component/Header02";
 import Header01 from "../component/Header";
 import { PhoneIcon } from "@chakra-ui/icons";
+import { useAuth } from "../AuthContext";//認証フックをインポート
+
 
 
 const Default = () => {
-  const isAuthenticated = false;
+  const {isAuthenticated} = useAuth();
+  const {userId} = useAuth();
+  console.log(isAuthenticated);
     return (
       <>   
       
@@ -25,10 +29,10 @@ const Default = () => {
        
           {isAuthenticated ? (
             <>
-                  <Route path='/' element={<TimeLine />} />
-                   <Route path="/profile" element={<Profile />} />
-                   <Route path="/setting" element={<Setting />} />
-                   <Route path="*" element={<NoMatch />} />
+              <Route path={'/'} element={<TimeLine />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="*" element={<NoMatch />} />
             </>
           ):(
             <>

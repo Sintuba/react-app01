@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';//フォームの状態管理とバリデーションを管理するライブラリ
-import {Box,useToast,Badge,Text,CSSReset,Flex,Heading,FormErrorMessage,FormControl,FormLabel,Input,Button, Center } from "@chakra-ui/react";
+import {Box,useToast,Badge,Text,CSSReset,Flex,Heading,FormErrorMessage,FormControl,FormLabel,Input,Button, Center, FormHelperText } from "@chakra-ui/react";
 function Signup  () {
     const Navigate = useNavigate();
     const toast = useToast();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [input,setInput] = useState('');//フォーム内のインプットの状態を管理
+    const isError = input === '';
+    const handleInputChange = (e) =>setInput(e.target.value);
+
     // React Hook Formの register ファンクションを使って、
     //各フィールドにバリデーションルールを追加 これをrequiredとして使用
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    
     const handleSignUp = async () => {
     try {
 
@@ -20,23 +24,23 @@ function Signup  () {
         password:password
        
       });
-   Navigate('/signin');
+       Navigate('/signin');
       // 登録成功のToastを表示
       toast({
         title: '登録成功',
-        description: "あなたのアカウントが正常に作成されました。",
+        description: "アカウントが正常に作成されました。",
         status: 'success',
-        duration: 5000,
+        duration: 2900,
         isClosable: true,
       });
      
     } catch (error) {
       // 登録失敗のToastを表示
       toast({
-        title: '登録失敗',
+        title: 'アカウントの登録に失敗しました。',
         description: "エラーが発生しました。",
         status: 'error',
-        duration: 5000,
+        duration: 2900,
         isClosable: true,
       });
     }
@@ -53,34 +57,59 @@ function Signup  () {
           {/* フォーム */}
             <Box p={"10px 20px"}>
                 <form onSubmit={handleSubmit(handleSignUp)}>
-                    <FormControl mt={4}>
-                        <FormLabel fontWeight={"1rem"}><Badge color={"white"} bg={"green"}>必須</Badge>ユーザー名</FormLabel>
+                    <FormControl isInvalid={errors.name} mt={4}>
+                        <FormLabel   fontWeight={"1rem"}><Badge mr={".25rem"}  color={"white"} bg={"green"}>必須</Badge>ユーザー名</FormLabel>
                         <Input
-                         {...register("name",{required:"ユーザー名を入力してください"})} 
-                         type="text"
-                          onChange={(e) => setUsername(e.target.value)}
+                         {...register("name",{
+                          required:"ユーザー名を入力してください",
+                          maxLength:{
+                            value:20,
+                            message:"ユーザー名は20文字以内で入力してください"
+                          },
+                          minLength:{
+                            value:1,
+                            message:"入力は必須です。"
+                          },
+                        })} 
+                          type="text"
+                          onChange={(e) => {setUsername(e.target.value);handleInputChange(e);}}
                           value={username} 
                           placeholder="ユーザー名" 
+                        
                         />
-                    <FormErrorMessage>
+                       < FormErrorMessage>
                         {errors.name && errors.name.message}
-                    </FormErrorMessage>
+                       </FormErrorMessage>
                     </FormControl>
-                    <FormControl mt={4}>
-                    <FormLabel fontWeight={"1rem"}><Badge color={"white"} bg={"green"}>必須</Badge>ユーザー名</FormLabel>
 
-                        <FormLabel>パスワード</FormLabel>
+                    <FormControl isInvalid={errors.password} mt={4}>
+                    <FormLabel  fontWeight={"1rem"}><Badge mr={".25rem"} color={"white"} bg={"green"}>必須</Badge>パスワード</FormLabel>
                         <Input 
-                          {...register("password", { required: "パスワードは必須です" })}
+                          {...register("password", { 
+                            required: "パスワードは必須です",
+                            maxLength:{
+                              value:20,
+                              message:"パスワードは２０文字以内で入力してください"
+                            },
+                            minLength:{
+                              value:4,
+                              message:"パスワードは４文字以上で入力して下さい"
+                            },
+                            pattern:{
+                              value:/^\d+$/,
+                              message:"パスワードは数字のみを使用してください"
+                            }
+                          })}
                           type="password" 
                           onChange={(e) => 
                           setPassword(e.target.value)} value={password}  
                           placeholder="パスワード" 
                          />
-
                     <FormErrorMessage>
                       {errors.password && errors.password.message}
                     </FormErrorMessage>
+             
+             
                     </FormControl>
                     <Center m={'1rem'}>
                     <Center>

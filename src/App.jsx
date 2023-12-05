@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter  } from "react-router-dom";
 import { Box, ChakraProvider } from "@chakra-ui/react";
-
+import { AuthProvider } from "./AuthContext";
 import Default from "./pages/Default";
 
 import theme from "./theme/Theme01";
@@ -22,11 +22,14 @@ const App = () => {
 <>
 
   <BrowserRouter basename="/">
-   
+   <AuthProvider>
+
       <AppContainer >
         <Default  />
       </AppContainer>
       
+   </AuthProvider>
+
     </BrowserRouter>
 
 </>

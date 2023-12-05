@@ -30,7 +30,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, PhoneIcon, SettingsIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
-
+import React,{useContext} from 'react';
 
 const NaviList = ()=> {
 
@@ -39,7 +39,7 @@ const NaviList = ()=> {
               
               <Text 
               textDecoration="none" 
-              as={NavLink} to={`/`}
+              as={NavLink} to={'/'}
               fontSize=".9rem"
               fontWeight={"bolder"}
               textShadow={".2px 1px black"}

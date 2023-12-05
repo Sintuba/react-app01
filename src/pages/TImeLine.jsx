@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { VStack, Box, Fade, useMediaQuery, Text, Flex, Input, Button, Textarea, Show, Hide } from '@chakra-ui/react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { useAuth } from '../AuthContext';
 const MessageItem = ({ item }) => {
+  const userId = useAuth();
   console.log(item,item.profile,item.username);
   return(
     <Fade transition={{ exit: { delay: .15 }, enter: { duration: 0.9 } }} in={true}>
@@ -17,7 +18,7 @@ const MessageItem = ({ item }) => {
   };
 
 const MainContainer = ({ Data = [] }) => {
-
+//ユーザーが投稿したメッセージを取得して表示する
   return(
     <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
       <VStack flexDirection={"column-reverse"} spacing={5} align="stretch">
@@ -28,10 +29,12 @@ const MainContainer = ({ Data = [] }) => {
   };
 
 const SideContainer = ({ fetchData }) => {
+  //ユーザー投稿フォーム
   const [newMessage, setNewMessage] = useState('');
 
   const handleAddMessage = async () => {
     try {
+      //デプロイする際には.envにて環境変数を使用してpost送信先URLを変更する
       await axios.post(`${process.env.REACT_APP_API_URL}/screams`, { 
         userId:0, 
         content: newMessage });

@@ -6,7 +6,10 @@ import { Box,Flex,Show,Heading } from "@chakra-ui/react";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/Signup";
 
+
+
 const Logo = () =>{
+
     return(
       <>
                 <Heading mr={"2rem"} mt={"2"} textShadow={"2.5px 3.3px  black"} fontSize="2rem">Screamer</Heading>
@@ -16,6 +19,7 @@ const Logo = () =>{
   };
 
 const Header = () => {
+
     return (
         <>
    
