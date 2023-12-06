@@ -29,11 +29,17 @@ import {
   useBoolean
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, PhoneIcon, SettingsIcon } from '@chakra-ui/icons';
-import { NavLink } from 'react-router-dom';
-import React,{useContext} from 'react';
+import { NavLink ,useNavigate} from 'react-router-dom';
+import React from 'react';
+import { useAuth } from "../AuthContext";
 
 const NaviList = ()=> {
-
+  const {signout} = useAuth();
+  const Navigate = useNavigate();
+  const handlesignout = () =>{
+    signout();
+    Navigate("/signin");
+  };
   return(
     <>
               
@@ -72,7 +78,12 @@ const NaviList = ()=> {
                 textShadow={".2px 1px black"}
                 color={"white"}
                 margin={"0 .9rem"}
-              ><Flex alignItems={"center"}><Box  m={".8rem 1rem"} justifyContent={"center"}><LiaToolsSolid fontSize={"1.8rem"} /></Box>設定</Flex></Text>
+              >
+                <Flex alignItems={"center"}>
+                  <Box  m={".8rem 1rem"} justifyContent={"center"}><LiaToolsSolid fontSize={"1.8rem"} /></Box>
+                  設定
+                </Flex>
+                </Text>
 
               <Text 
                 textDecoration="none" 
@@ -82,7 +93,13 @@ const NaviList = ()=> {
                 textShadow={".2px 1px black"}
                 color={"white"}
                 margin={"0 .9rem"}
-              ><Flex alignItems={"center"}><Box  m={".8rem 1rem"}justifyContent={"center"}><BiDoorOpen fontSize={"1.8rem"} /></Box>ログアウト</Flex></Text>
+                onClick={handlesignout}
+              >
+                <Flex alignItems={"center"}>
+                  <Box  m={".8rem 1rem"}justifyContent={"center"}><BiDoorOpen fontSize={"1.8rem"} /></Box>
+                  サインアウト
+                </Flex>
+              </Text>
         
     </>
   );
@@ -102,6 +119,7 @@ const Logo = () =>{
 
 const Header02 = () => {
   // const [flag,setFlag] = useBoolean();
+  //useDisclosureはChakra UIの提供するHooksで、modal,drawerなどのオン、オフを管理できる。
   const {isOpen,onOpen,onClose,onToggle} = useDisclosure(false);
   const HamButton = () =>{
     return(

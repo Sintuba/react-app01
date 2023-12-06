@@ -42,7 +42,7 @@ const SignIn = () =>{
                     duration: 2900,
                     isClosable: true,
                   });
-                Navigate(`/${userId}`);
+                Navigate(`/`);
             }
          
         }catch(error){

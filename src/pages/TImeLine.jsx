@@ -2,9 +2,10 @@ import React, { useState, useEffect,useContext } from 'react';
 import { VStack, Box, Fade, useMediaQuery, Text, Flex, Input, Button, Textarea, Show, Hide } from '@chakra-ui/react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
+import { useAuth } from '../AuthContext';//{}は分割代入
+
 const MessageItem = ({ item }) => {
-  const userId = useAuth();
+
   console.log(item,item.profile,item.username);
   return(
     <Fade transition={{ exit: { delay: .15 }, enter: { duration: 0.9 } }} in={true}>
@@ -29,14 +30,15 @@ const MainContainer = ({ Data = [] }) => {
   };
 
 const SideContainer = ({ fetchData }) => {
+  const {userId} = useAuth();
   //ユーザー投稿フォーム
   const [newMessage, setNewMessage] = useState('');
 
   const handleAddMessage = async () => {
     try {
       //デプロイする際には.envにて環境変数を使用してpost送信先URLを変更する
-      await axios.post(`${process.env.REACT_APP_API_URL}/screams`, { 
-        userId:0, 
+      await axios.post(`${process.env.REACT_APP_API_URL}/screams/${userId}`, { 
+        // userId:userId, 
         content: newMessage });
       setNewMessage('');
       fetchData();
@@ -95,7 +97,7 @@ const TimeLine = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/screams`);
      
-      setData(response.data); // 取得したデータをStateにセット
+      setData(response.data); // 取得した投稿に関するデータをStateにセット
     } catch (error) {
       console.error('エラー:', error);
     }
