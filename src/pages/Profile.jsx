@@ -7,21 +7,9 @@ import { useAuth } from "../AuthContext";
 
 const User = () => {
     const[userName,setUserName] = useState("");
-    let {user} = useAuth();
+    // let {user} = useAuth();
     
-    useEffect(() =>{
-        if(user && user.id){
-             fetch('${process.env.REACT_APP_URL}/users')
-        .then(response => response.json())
-        .then(data => {
-            if(data.length > 0){
-                setUserName(data[0].name);
-            }
-        })
-        .catch(error => console.error('Error',error));
-        };
-       
-    },[user]);
+ 
     return(
     <>
        <Box  >
