@@ -32,7 +32,7 @@
     "build": "react-scripts build --output-path=docs",
     "test": "jest",
     "eject": "react-scripts eject",
-    "postbuild": "cp build/index.html build/404.html && cp -r build/* docs/",
+    "postbuild": "copy build\\index.html build\\404.html && xcopy /E /I build docs",
     "rm": "rm -rf docs",
     "mv": "mv build docs",
     "git": "git add . && git commit -m \"Commit message\" && git push origin master",
