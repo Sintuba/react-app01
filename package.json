@@ -36,6 +36,7 @@
     "rm": "rm -rf docs",
     "mv": "mv build docs",
     "git": "git add . && git commit -m \"Commit message\" && git push origin master",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d docs"
   },
   "eslintConfig": {
@@ -57,7 +58,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.0.0",
+    "gh-pages": "^6.1.0",
     "jest": "^27.5.1"
   }
 }
