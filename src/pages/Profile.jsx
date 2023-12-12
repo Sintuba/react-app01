@@ -1,16 +1,31 @@
 import { Text, Center, Container,Tabs,TabList,Tab,TabPanel, TabPanels, Box} from "@chakra-ui/react";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { useAuth } from "../AuthContext";
 
 
 
+
 const User = () => {
+    const[userName,setUserName] = useState("");
     let {user} = useAuth();
-    user  = "tets"
+    
+    useEffect(() =>{
+        if(user && user.id){
+             fetch('${process.env.REACT_APP_URL}/users')
+        .then(response => response.json())
+        .then(data => {
+            if(data.length > 0){
+                setUserName(data[0].name);
+            }
+        })
+        .catch(error => console.error('Error',error));
+        };
+       
+    },[user]);
     return(
     <>
        <Box  >
-            <Text>User:{user}</Text>
+            <Text>User:{userName}</Text>
             
         </Box>
     </>);

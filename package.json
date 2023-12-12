@@ -2,6 +2,7 @@
   "name": "react-app01",
   "version": "0.1.0",
   "private": true,
+    "proxy":"http://localhost:3001",
   "homepage": "https://sintuba.github.io/react-app01/",
   "engines": {
     "node": "20.9.0",
