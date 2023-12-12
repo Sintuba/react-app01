@@ -39,7 +39,7 @@ const SignIn = () =>{
                     title: 'サインイン',
                     description: "正常にサインインされました。",
                     status: 'success',
-                    duration: 2900,
+                    duration: 2000,
                     isClosable: true,
                   });
                 Navigate(`/`);
@@ -50,7 +50,7 @@ const SignIn = () =>{
                 title: 'サインインに失敗しました。',
                 description: "エラーが発生しました。",
                 status: 'error',
-                duration: 2900,
+                duration: 2500,
                 isClosable: true,
               });
         }

@@ -16,13 +16,14 @@ import { useAuth } from "../AuthContext";//認証フックをインポート
 
 
 const Default = () => {
-  const {isAuthenticated} = useAuth();
+  const {isAuthenticated} = useAuth();//AuthContextと値（True,False）をやり取りすることでサインイン、サインアウト状態を管理している
 
   console.log(isAuthenticated);
+  //下記三項演算子にてサインイン状態を判定しヘッダーとルーティングを切り替えている
     return (
       <>   
       
-      {isAuthenticated ? <Header02 />:<Header01  /> }   
+      {isAuthenticated ? <Header02 />:<Header01  /> } 
       <Box zIndex={"-1"} position={"relative"} top={"60px"}>
         <Routes>
 

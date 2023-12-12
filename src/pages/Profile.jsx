@@ -1,49 +1,64 @@
 import { Text, Center, Container,Tabs,TabList,Tab,TabPanel, TabPanels, Box} from "@chakra-ui/react";
-
 import React from "react";
+import { useAuth } from "../AuthContext";
+
+
 
 const User = () => {
+    let {user} = useAuth();
+    user  = "tets"
     return(
     <>
-       <Box boxShadow={"2px 2px 10px black "}>
-            <Text>User:</Text>
+       <Box  >
+            <Text>User:{user}</Text>
             
         </Box>
     </>);
 }
 
+const Follow = () =>{
+    return(
+        <>
+           <Box>フォロー</Box>
+        </>
+    );
+};
+const Follower = () =>{
+    return(
+        <>
+             <Box>フォロワー</Box>
+        </>
+    );
+};
+
 const Profile = () =>{
     return(
         <>         
-             
- 
-                <Box position={"relative"} top={"60px"} >
-
-                    <User />
-
-                <Tabs >
-                    <TabList alignItems={"center"}>
-                        <Tab>いいね</Tab>
-                        <Tab>フォロー</Tab>
-                        <Tab>フォロワー</Tab>
-                    </TabList>
             
+
+        <Box  position={"relative"}  >
+            <Box textAlign={"center"}>
+                 <User />
+            </Box>
+           
+
+            <Tabs >
+                <TabList alignItems={"center"}>
+                    <Tab>フォロー</Tab>
+                    <Tab>フォロワー</Tab>
+                </TabList>
+        
 
                 <TabPanels>
                     <TabPanel>
-                        <Box  >
-                            いいね
-                        </Box>
+                        <Follow />
                     </TabPanel>
                     <TabPanel>
-                        <Box>フォロー</Box>
-                    </TabPanel>
-                    <TabPanel>
-                        <Box>フォロワー</Box>
+                        <Follower />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-            </Box>
+        </Box>
         </>
     );
 };
