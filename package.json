@@ -5,7 +5,7 @@
   "homepage": "https://sintuba.github.io/react-app01/",
   "engines": {
     "node": "20.9.0",
-    "npm": "10.2.3"
+    "npm": "10.2.5"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
