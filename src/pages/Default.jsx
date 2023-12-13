@@ -1,35 +1,47 @@
-import React from "react";
-import { BrowserRouter,useNavigate,Router,Routes,Route } from "react-router-dom";
+import React, {useContext} from "react";
+import { Router,Routes,Route,Navigate} from "react-router-dom";
 import { Box } from "@chakra-ui/react";
-import Header from "../component/Header";
+//pages
 import SignIn from "./SignIn";
-import SignUp from "./signup_page";
+import SignUp from "./Signup";
 import TimeLine from "./TImeLine";
 import Setting from "./Setting";
 import Profile from "./Profile";
 import NoMatch from "./NoMatch";
+//pages
 import Header02 from "../component/Header02";
-import { PhoneIcon } from "@chakra-ui/icons";
+import Header01 from "../component/Header";
+import { useAuth } from "../AuthContext";//認証フックをインポート
+
 
 
 const Default = () => {
+  const {isAuthenticated} = useAuth();//AuthContextと値（True,False）をやり取りすることでサインイン、サインアウト状態を管理している
 
+  console.log(isAuthenticated);
+  //下記三項演算子にてサインイン状態を判定しヘッダーとルーティングを切り替えている
     return (
-      <>
-
-      <Header02  />
-
+      <>   
+      
+      {isAuthenticated ? <Header02 />:<Header01  /> } 
       <Box zIndex={"-1"} position={"relative"} top={"60px"}>
-
         <Routes>
-              
-        <Route path="/timeline" element={<TimeLine />} />
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="*" element={<NoMatch />} />
-        <Route path="/signup" element={<SignUp />} />
+          {isAuthenticated ? (
+            <>
+              <Route path={'/'} element={<TimeLine />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="*" element={<NoMatch />} />
+            </>
+          ):(
+            <>
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="*" element={<Navigate to="/signin" />} />
+            </>
+
+          )}
         </Routes>
    
 

@@ -1,46 +1,129 @@
+import React, { useState, useEffect,useContext } from 'react';
+import { VStack, Box,useToast, Fade,Stack, useMediaQuery, Text, Icon,Flex, Input, Button, Textarea, Show, Hide, Alert } from '@chakra-ui/react';
+import axios from 'axios';
+import {motion,isVaildMotionProp} from 'framer-motion';
+import { useParams } from 'react-router-dom';
+import { useAuth } from '../AuthContext';//{}は分割代入
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-import React, { useState, useEffect } from 'react';
-// import style from "../css/timeline.module.css";
-import { VStack,extendTheme , Box,Fade,useMediaQuery, Text, Flex, Input, Button, CSSReset, FormControl, FormLabel, Heading, Slide,Show,Hide } from '@chakra-ui/react';
-import {  Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+/*
+likedフィールドを完全に取り除き、user_idとscream_idの組み合わせの存在自体が
+「いいね」されていることを示すようにする。この場合、レコードが存在する＝「いいね」されている
+レコードが存在しない＝「いいね」されていない、となる。
 
-import ScreamButton from "../component/Button";
+実装例:
 
+「いいね」: user_idとscream_idの組み合わせでレコードを作成。
+「いいね」の解除: 対応するレコードを削除。
+この方法はデータモデルをさらにシンプルにし、クエリの実行速度を向上させる可能性があります。
 
-const MainContainer = ({ dummyData }) =>{
+効率的なデータ管理のための他のアプローチ
+インデックスの使用: user_idとscream_idにインデックスを設定して
+、検索と更新のパフォーマンスを向上させる。
 
-  return(
-    <>
-   
-       <Flex justifyContent={"center"}>
+キャッシュの導入: 頻繁にアクセスされるデータ（例えば、特定の投稿に対する総いいね数）をキャッシュし、
+データベースへのアクセスを減らす。
+
+非同期処理: いいねの状態の更新を非同期で行い、ユーザーインターフェースの応答性を保つ。
+*/ 
+
+const MessageItem = ({ item }) => {
+  const {userId} = useAuth();
+  const toast = useToast();
+  const [isLike,isLikeState] = useState(false);
+  console.log(isLike);
+  //今後likecountはデータベース上のscreamテーブルに
+  //保存し数値を取得して表示する。
+  //投稿に対しユーザー毎に一いいねできそれをlikeテーブルにbooleanで保存し
+  //ユーザーがすでに言い値しているかの判定を行う。
+  const [count,setCount] = useState(0);
+  console.log(item,item.profile,item.username);
+
+  const toggleLike = async () =>{
   
-            <VStack spacing={5} align="stretch">
-              {dummyData.map((item) => (
-                  <Box  justifyContent={"center"}  margin={"0 1vw"} h={"22vh"} w={"70vw"} key={item.id} p={0} borderWidth={1} borderRadius={8} boxShadow="lg">
-                    <Text fontSize="lg">{item.username}</Text>
-                    <Text mt={2}>{item.message}</Text>
-                  </Box>
-              ))}
-            </VStack>
-      </Flex>
-   
-    </>
-  );
-     
-};
-const SideContainer = ({ dummyData, setDummyData }) =>{
-  const [newMessage, setNewMessage] = useState('');
-  const handleAddMessage = () => {
-    const newId = dummyData.length + 1;
-    const newMessageData = { id: newId, username: 'User1', message: newMessage };
-    setDummyData([...dummyData, newMessageData]);
-    setNewMessage('');
+    try{
+      if(isLike){
+          setCount(count - 1);
+          isLikeState(false);
+
+        }else{
+          setCount(count + 1);
+          isLikeState(true);
+
+        }
+        
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/screams/:userId/likes`,
+        {
+          isLike:isLike,
+          useId:userId
+        });
+    }catch(error){
+      isLikeState(false);
+      setCount(0);
+      toast({
+        title: '通信に失敗しました。',
+        description: "エラー",
+        status: 'error',
+        duration: 2500,
+        isClosable: true,
+      });
+    }
+
+
   };
+
   return(
+    <Fade transition={{ exit: { delay: .15 }, enter: { duration: 2 } }} in={true}>
+    <Box justifyContent={"center"} margin={"0 1vw"}  w={"70vw"} p={"1rem"} borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Text padding={".2rem"} fontSize="lg">{item.name}</Text>
+      <Text mt={2}>{item.content}</Text>
+      {/* <Stack  m={"1rem "} > */}
+        <Flex m={".5rem 0 0"} justifyContent={"flex-end"} cursor={"pointer"}>
+          <Icon mr={" .3rem"} onClick={toggleLike}  textAlign={"right"}  as={isLike ? AiFillHeart:AiOutlineHeart} fontSize={"1.4rem"} color={isLike ? "red.400":"" }/>
+          <Text>{count}</Text>
+        </Flex>
+      {/* </Stack> */}
+    </Box>
+  </Fade>
+  );
+
+  };
+
+const MainContainer = ({ Data = [] }) => {
+//ユーザーが投稿したメッセージを取得して表示する
+  return(
+    <Flex justifyContent={"center"} flexDirection={"column-reverse"}>
+      <VStack flexDirection={"column"} spacing={5} align="stretch">
+        {Data.map(item => <MessageItem key={item.id} item={item} />)}
+      </VStack>
+    </Flex>
+  );
+  };
+
+const SideContainer = ({ fetchData }) => {
+  const {userId} = useAuth();
+  //ユーザー投稿フォーム
+  const [newMessage, setNewMessage] = useState('');
+
+  const handleAddMessage = async () => {
+    
+    try {
+      //デプロイする際には.envにて環境変数を使用してpost送信先URLを変更する
+      await axios.post(`${process.env.REACT_APP_API_URL}/screams/${userId}`, { 
+        // userId:userId, 
+        content: newMessage });
+      setNewMessage('');
+      fetchData();
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
+
+  return (
     <>
-  <Show above='860px' >
-    <Box bg={"white"} position={"fixed"} left={0} h={"100vh"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
-      <Input
+      <Show above='875px'>
+      <Box bg={"white"} position={"fixed"} left={0} h={"100vh"}  w={"25vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Textarea
       alignItems={"baseline"}
         placeholder="新しいメッセージを入力"
         value={newMessage}
@@ -52,10 +135,9 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
         さけぶ
       </Button>
     </Box>
-  </Show>
-  {/* 投稿ブロック*/}
-  <Hide above='860px'>
-  <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
+      </Show>
+      <Hide above='875px'>
+      <Box  bg={"white"}  bottom={0} position={"fixed"} height={"4rem"} w={"100vw"} p={5} borderWidth={1} borderRadius={8} boxShadow="lg">
   <Flex alignItems={"flex-end"} justifyContent={"center"} >
         <Input
           
@@ -70,40 +152,45 @@ const SideContainer = ({ dummyData, setDummyData }) =>{
         </Button>
   </Flex>
     </Box>
-
-  </Hide>
-
+      </Hide>
     </>
   );
-}
+};
 
 const TimeLine = () => {
-  const [dummyData,setDummyData] = useState([]);
-  const [Smaller860] = useMediaQuery(`(max-width:860px)`);
-  const [justifyContent, setJustifyContent] = useState(Smaller860 ? 'center' : 'flex-end');  console.log('Smaller860:', Smaller860);
-console.log('justifyContent:', justifyContent);
-  useEffect(() => {
-    const initialDummyMessages = [
-         // ダミーデータの初期化（今後データベースからの取得に置き換える）
-    ];
 
-    setDummyData(initialDummyMessages);
-  }, []);
-  useEffect(()=>{
-        setJustifyContent(Smaller860 ? 'center':'flex-end');
-  },[Smaller860]);
-    return(
+  const [isSmallerThan875] = useMediaQuery('(min-width: 875px)');
+  const justifyContent = isSmallerThan875 ? 'flex-end' : 'center';
+  const [data,setData] = useState([]);
+  const [reloadData, setReloadData] = useState(false);
+  
+  const fetchData = async () => {
+
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/screams`);
+     
+      setData(response.data); // 取得した投稿に関するデータをStateにセット
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(); // コンポーネントのマウント時およびreloadDataが変更されたときに実行
+  }, [reloadData]);
+
+
+
+  return (
     <>
-       <Flex  flexDirection={"column-reverse"}  justifyContent={justifyContent}>
-           
-            <SideContainer dummyData={dummyData} setDummyData={setDummyData} />
-          <Box pt={"55px"} pb={"67px"} >
-              <MainContainer dummyData={dummyData} />
-              
-          </Box>
-       </Flex>
+      <Flex justifyContent={justifyContent}>
+        <SideContainer fetchData={fetchData} />
+        <Box pt={"55px"} pb={"67px"}>
+          <MainContainer Data={data} />
+        </Box>
+      </Flex>
     </>
-    );
+  );
 };
 
 export default TimeLine;
